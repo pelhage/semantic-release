@@ -51,3 +51,13 @@ test('The "generateNotes" plugins output are concatenated with separator and sen
     `Note 1: Exposing token ${SECRET_REPLACEMENT}${RELEASE_NOTES_SEPARATOR}Note 2: Exposing token ${SECRET_REPLACEMENT}`
   );
 });
+
+test('The "addChannel" plugin output, if defined, must be an object', t => {
+  t.false(plugins.addChannel.outputValidator(1));
+  t.false(plugins.addChannel.outputValidator('string'));
+
+  t.true(plugins.addChannel.outputValidator({}));
+  t.true(plugins.addChannel.outputValidator());
+  t.true(plugins.addChannel.outputValidator(null));
+  t.true(plugins.addChannel.outputValidator(''));
+});

@@ -29,6 +29,7 @@ test.serial('Pass options to semantic-release API', async t => {
     '',
     '-b',
     'master',
+    'next',
     '-r',
     'https://github/com/owner/repo.git',
     '-t',
@@ -65,7 +66,7 @@ test.serial('Pass options to semantic-release API', async t => {
 
   const exitCode = await cli();
 
-  t.is(run.args[0][0].branch, 'master');
+  t.deepEqual(run.args[0][0].branches, ['master', 'next']);
   t.is(run.args[0][0].repositoryUrl, 'https://github/com/owner/repo.git');
   t.is(run.args[0][0].tagFormat, `v\${version}`);
   t.deepEqual(run.args[0][0].extends, ['config1', 'config2']);
@@ -88,7 +89,7 @@ test.serial('Pass options to semantic-release API with alias arguments', async t
   const argv = [
     '',
     '',
-    '--branch',
+    '--branches',
     'master',
     '--repository-url',
     'https://github/com/owner/repo.git',
@@ -103,7 +104,7 @@ test.serial('Pass options to semantic-release API with alias arguments', async t
 
   const exitCode = await cli();
 
-  t.is(run.args[0][0].branch, 'master');
+  t.deepEqual(run.args[0][0].branches, ['master']);
   t.is(run.args[0][0].repositoryUrl, 'https://github/com/owner/repo.git');
   t.is(run.args[0][0].tagFormat, `v\${version}`);
   t.deepEqual(run.args[0][0].extends, ['config1', 'config2']);
@@ -176,7 +177,7 @@ test.serial('Display help', async t => {
   t.is(exitCode, 0);
 });
 
-test.serial('Returns error code and prints help if called with a command', async t => {
+test.serial('Return error code and prints help if called with a command', async t => {
   const run = stub().resolves(true);
   const argv = ['', '', 'pre'];
   const cli = requireNoCache('../cli', {'.': run, process: {...process, argv}});

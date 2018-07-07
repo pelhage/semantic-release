@@ -11,7 +11,7 @@ The following three examples are the same.
 Via CLI argument:
 
 ```bash
-$ semantic-release --branch next
+$ semantic-release --branches master next
 ```
 
 Via `release` key in the project's `package.json` file:
@@ -19,7 +19,7 @@ Via `release` key in the project's `package.json` file:
 ```json
 {
   "release": {
-    "branch": "next"
+    "branches": ["master", "next"]
   }
 }
 ```
@@ -31,7 +31,7 @@ Via `.releaserc` file:
 
 ```json
 {
-  "branch": "next"
+  "branches": ["master", "next"]
 }
 ```
 ```bash
@@ -64,13 +64,13 @@ List of modules or file paths containing a [shareable configuration](shareable-c
 
 **Note**: Options defined via CLI arguments or in the configuration file will take precedence over the ones defined in any shareable configuration.
 
-### branch
+### branches
 
-Type: `String`<br>
-Default: `master`<br>
-CLI arguments: `-b`, `--branch`
+Type: `Array`, `String`, `Object`<br>
+Default: `['master']`<br>
+CLI arguments: `--branches`
 
-The branch on which releases should happen.
+The branches on which releases should happen.
 
 ### repositoryUrl
 
